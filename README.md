@@ -1,33 +1,4 @@
-![cf](https://i.imgur.com/7v5ASc8.png) Lab 08: Vanilla REST API
-======
-
-## Submission Instructions
-  * fork this repository & create a new branch for your work
-  * push to your repository
-  * submit a pull request to this repository
-  * submit a link to your PR in canvas
-  * write a question and observation on canvas
-
-## Learning Objectives  
-* students will learn to use promise constructs to manage asynchronous code
-* students will learn to create a vanilla RESTful API with in-memory persistence
-
-## Requirements
-#### Configuration
-  * `.gitignore`
-  * `.eslintrc`
-  * `package.json`
-  * `README.md`
-
 #### Feature Tasks
-* create the following directories to organize your code:
-  * `lib`
-  * `model`
-  * `test`
-* create an HTTP server using the native NodeJS `http` module
-* create an object constructor that creates a _simple resource_ with at least 3 properties
-  * include an `id` property that is set to a unique id (**hint:** you'll need to use `node-uuid`)
-  * include two additional properties of your choice (ex: name, content, etc.)
 * create a custom body parser module that uses promises to parse the JSON body of `POST` and `PUT` requests
 * create a custom url parser module that returns a promise and uses the NodeJS `url` and `querystring` modules to parse the request url
 * create a router constructor that handles requests to `GET`, `POST`, `PUT`, and `DELETE` requests
