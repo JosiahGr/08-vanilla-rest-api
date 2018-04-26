@@ -10,7 +10,7 @@ module.exports = function bodyParser(req) {
 
     let message = '';
     req.on('data', (data) => {
-      logger.log(logger.INFO, `BODY PARSER: chuncked request data: ${data.toString()}`);
+      logger.log(logger.INFO, `BODY PARSER: chunked request data: ${data.toString()}`);
       message += data.toString();
     });
 

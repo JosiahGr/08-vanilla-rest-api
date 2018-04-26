@@ -1,6 +1,5 @@
 #### Feature Tasks
 * create a custom body parser module that uses promises to parse the JSON body of `POST` and `PUT` requests
-* create a custom url parser module that returns a promise and uses the NodeJS `url` and `querystring` modules to parse the request url
 * create a router constructor that handles requests to `GET`, `POST`, `PUT`, and `DELETE` requests
 * create a storage module that will store resources by their schema type (ex: note) and id
 

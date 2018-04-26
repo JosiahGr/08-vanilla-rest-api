@@ -6,7 +6,11 @@ const urlParser = require('./url-parser');
 
 const Router = module.exports = function router() {
   this.routes = {
-    GET: {},
+    GET: {
+      // Just a hard-coded example
+      // '/api/v1/note': (req, res) => {},
+      // '/api/v1/note/:id': (req, res) => {},
+    },
     POST: {},
     PUT: {},
     DELETE: {},
@@ -36,28 +40,26 @@ Router.prototype.route = function route() {
       bodyParser(req),
     ])
       .then(() => {
-        if (typeof this.route[req.method][req.url.pathname] === 'function') {
-          this.route[req.method][req.url.pathname](req, res);
+        if (typeof this.routes[req.method][req.url.pathname] === 'function') {
+          this.routes[req.method][req.url.pathname](req, res);
           return;
-        }
-
+        } 
         res.writeHead(404, { 'Content-Type': 'text/plain' });
-        res.write('Route not found');
+        res.write('Route Not Found FROM HERE');
         res.end();
-        return undefined;
       })
       .catch((err) => {
         if (err instanceof SyntaxError) {
           res.writeHead(404, { 'Content-Type': 'text/plain' });
-          res.write('Route not found');
+          res.write('Route Not Found');
           res.end();
           return undefined;
         }
         logger.log(logger.ERROR, JSON.stringify(err));
         res.writeHead(400, { 'Content-Type': 'text/plain' });
-        res.write('Bad Request THIS ONE');
+        res.write('Bad Request');
         res.end();
         return undefined;
       });
   };
-};  
+};

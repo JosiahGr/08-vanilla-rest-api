@@ -1,5 +1,3 @@
-'use strict';
-
 const server = require('./lib/server');
 const logger = require('./lib/logger');
 

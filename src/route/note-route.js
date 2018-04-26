@@ -6,7 +6,7 @@ const storage = require('../lib/storage');
 
 module.exports = function routeNote(router) {
   router.post('/api/v1/note', (req, res) => {
-    logger.log(logger.INFO, 'NOTE-ROUTE: POST /api/v1/note');
+    logger.log(logger.INFO, 'NOTE_ROUTE: POST /api/v1/note');
 
     try {
       const newNote = new Note(req.body.title, req.body.content);
@@ -18,9 +18,9 @@ module.exports = function routeNote(router) {
           return undefined;
         });
     } catch (err) {
-      logger.log(logger.ERROR, `ROUTE-NOTE: There was a bad request ${err}`);
+      logger.log(logger.ERROR, `NOTE-ROUTE: There was a bad request ${err}`);
       res.writeHead(400, { 'Content-Type': 'text/plain' });
-      res.write('Bad request THIS OTHER ONE');
+      res.write('Bad request');
       res.end();
       return undefined;
     }
@@ -29,7 +29,7 @@ module.exports = function routeNote(router) {
 
   router.get('/api/v1/note', (req, res) => {
     if (!req.url.query.id) {
-      res.writeHead(400, { 'Content-Type': 'text/plain' });
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
       res.write('Your request requires an id');
       res.end();
       return undefined;
