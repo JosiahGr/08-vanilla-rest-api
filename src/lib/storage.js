@@ -21,6 +21,7 @@ storage.create = function create(schema, item) {
     if (!item) return reject(new Error('Cannot create a new item, item required'));
     if (!memory[schema]) memory[schema] = {};
     memory[schema][item.id] = item;
+    memory[schema][item.id] = item;
     return resolve(item);
   });
 };
@@ -60,13 +61,13 @@ storage.delete = function del(schema, id) {
     if (!id) return reject(new Error('expected id'));
     if (!memory[schema]) return reject(new Error('schema not found'));
 
-    const item = memory[schema][id];
+    const item = memory[schema];
 
     if (!item) {
       return reject(new Error('item not found'));
-    } 
+    }
 
-    item.destroy(item);
+    item.destroy(id);
 
     return resolve();
   });
