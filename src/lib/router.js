@@ -6,11 +6,7 @@ const urlParser = require('./url-parser');
 
 const Router = module.exports = function router() {
   this.routes = {
-    GET: {
-      // Just a hard-coded example
-      // '/api/v1/note': (req, res) => {},
-      // '/api/v1/note/:id': (req, res) => {},
-    },
+    GET: {},
     POST: {},
     PUT: {},
     DELETE: {},

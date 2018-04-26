@@ -35,3 +35,46 @@ describe('VALID request to the API', () => {
     });
   });
 });
+
+
+describe('INVALID request to the API', () => {
+  describe('GET /api/v1/cowsaypage', () => {
+    it('should err out with 404 status code for not sending anything', () => {
+      return superagent.get(`:${testPort}/api/v1/cowsay`)
+        .query({})
+        .then(() => {})
+        .catch((err) => {
+          expect(err.status).toEqual(404);
+          expect(err).toBeTruthy();
+        });
+    });
+  });
+  describe('GET: /api/v1/note', () => {
+    it('should respond with not found if id was not found', () => {
+      return superagent.get(`:${testPort}/api/v1/note?id=5`)
+        .query({})
+        .catch((err) => {
+          expect(err.status).toEqual(404);
+          expect(err).toBeTruthy();
+        });
+    });
+    it('it should respond with bad request if no id was provided', () => {
+      return superagent.get(`:${testPort}/api/v1/note?id=${mockId}`)
+        .send(mockResource)
+        .query({})
+        .catch((err) => {
+          expect(err.status).toEqual(400);
+          expect(err).toBeTruthy();
+        });
+    });
+    it('it should respond with bad request if no body was provided', () => {
+      return superagent.get(`:${testPort}/api/v1/note?id=${mockId}`)
+        .send(mockResource)
+        .query({})
+        .catch((err) => {
+          expect(err.status).toEqual(400);
+          expect(err).toBeTruthy();
+        });
+    });
+  });
+});
