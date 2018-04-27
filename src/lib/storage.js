@@ -5,15 +5,6 @@ const logger = require('./logger');
 const storage = module.exports = {};
 const memory = {};
 
-// memory = {
-//   'Notes': {
-//     '1234.567.89': {
-//       'title': 'some title',
-//       'content': 'some content',
-//     }
-//   }
-// }
-
 storage.create = function create(schema, item) {
   logger.log(logger.INFO, 'STORAGE: Created a new resource');
   return new Promise((resolve, reject) => {
@@ -38,14 +29,30 @@ storage.fetchOne = function fetchOne(schema, id) {
   });
 };
 
-storage.fetchAll = function fetchAll() {
-  
+storage.fetchAll = function fetchAll(schema) {
+  return new Promise((resolve, reject) => {
+    if (!schema) return reject(new Error('expected schema name'));
+    if (!memory[schema]) return reject(new Error('schema not found'));
+    
+    const allItems = Object.values(memory[schema]);
+    const notes = allItems.map(note => note.id);
+    
+    if (!notes) {
+      return reject(new Error('object not found'));
+    }
+    return resolve(notes);
+  });
 };
 
-storage.update = function update() {
+storage.delete = function del(schema, id) {
+  return new Promise((resolve, reject) => {
+    if (!schema) return reject(new Error('expected schema name'));
+    if (!id) return reject(new Error('expected id'));
+    if (!memory[schema]) return reject(new Error('schema not found'));
 
-};
+    const item = memory[schema][id];
+    delete memory[schema][id];
 
-storage.delete = function del() {
-
+    return resolve(item);
+  });
 };
