@@ -11,9 +11,9 @@ beforeAll(() => server.start(testPort));
 afterAll(() => server.stop());
 
 describe('VALID request to the API', () => {
-  describe('POST /api/v1/note', () => {
-    it('should respond with status 201 and created a new note', () => {
-      return superagent.post(`:${testPort}/api/v1/note`)
+  describe('POST /api/v1/painting', () => {
+    it('should respond with status 201 and created a new painting', () => {
+      return superagent.post(`:${testPort}/api/v1/painting`)
         .send(mockResource)
         .then((res) => {
           mockId = res.body.id;
@@ -24,9 +24,9 @@ describe('VALID request to the API', () => {
     });
   });
 
-  describe('GET /api/v1/note', () => {
-    it('should respond with the a previously created note', () => {
-      return superagent.get(`:${testPort}/api/v1/note?id=${mockId}`)
+  describe('GET /api/v1/painting', () => {
+    it('should respond with the a previously created painting', () => {
+      return superagent.get(`:${testPort}/api/v1/painting?id=${mockId}`)
         .then((res) => {
           expect(res.body.title).toEqual(mockResource.title);
           expect(res.body.content).toEqual(mockResource.content);
@@ -49,9 +49,9 @@ describe('INVALID request to the API', () => {
         });
     });
   });
-  describe('GET: /api/v1/note', () => {
+  describe('GET: /api/v1/painting', () => {
     it('should respond with not found if id was not found', () => {
-      return superagent.get(`:${testPort}/api/v1/note?id=5`)
+      return superagent.get(`:${testPort}/api/v1/painting?id=5`)
         .query({})
         .catch((err) => {
           expect(err.status).toEqual(404);
@@ -59,7 +59,7 @@ describe('INVALID request to the API', () => {
         });
     });
     it('it should respond with bad request if no id was provided', () => {
-      return superagent.get(`:${testPort}/api/v1/note?id=`)
+      return superagent.get(`:${testPort}/api/v1/painting?id=`)
         .query({})
         .catch((err) => {
           expect(err.status).toEqual(404);
@@ -67,7 +67,7 @@ describe('INVALID request to the API', () => {
         });
     });
     it('it should respond with bad request if no body was provided', () => {
-      return superagent.get(`:${testPort}/api/v1/note?id=${mockId}`)
+      return superagent.get(`:${testPort}/api/v1/painting?id=${mockId}`)
         .query({})
         .catch((err) => {
           expect(err.status).toEqual(400);

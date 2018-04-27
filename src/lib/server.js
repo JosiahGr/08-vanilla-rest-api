@@ -4,7 +4,7 @@ const http = require('http');
 const Router = require('./router');
 
 const router = new Router();
-require('../route/note-route')(router);
+require('../route/painting-route')(router);
 
 const app = http.createServer(router.route());
 
