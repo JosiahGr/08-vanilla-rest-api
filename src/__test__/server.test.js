@@ -62,7 +62,7 @@ describe('INVALID request to the API', () => {
       return superagent.get(`:${testPort}/api/v1/note?id=`)
         .query({})
         .catch((err) => {
-          expect(err.status).toEqual(400);
+          expect(err.status).toEqual(404);
           expect(err).toBeTruthy();
         });
     });
