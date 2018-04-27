@@ -5,22 +5,12 @@ const logger = require('./logger');
 const storage = module.exports = {};
 const memory = {};
 
-// memory = {
-//   'Notes': {
-//     '1234.567.89': {
-//       'title': 'some title',
-//       'content': 'some content',
-//     }
-//   }
-// }
-
 storage.create = function create(schema, item) {
   logger.log(logger.INFO, 'STORAGE: Created a new resource');
   return new Promise((resolve, reject) => {
     if (!schema) return reject(new Error('Cannot create a new item, schema required'));
     if (!item) return reject(new Error('Cannot create a new item, item required'));
     if (!memory[schema]) memory[schema] = {};
-    memory[schema][item.id] = item;
     memory[schema][item.id] = item;
     return resolve(item);
   });
@@ -39,14 +29,13 @@ storage.fetchOne = function fetchOne(schema, id) {
   });
 };
 
-storage.fetchAll = function fetchAll(schema, id) {
+storage.fetchAll = function fetchAll(schema) {
   return new Promise((resolve, reject) => {
     if (!schema) return reject(new Error('expected schema name'));
-    if (!id) return reject(new Error('expected id'));
     if (!memory[schema]) return reject(new Error('schema not found'));
     
     const allItems = Object.values(memory[schema]);
-    const notes = allItems.map(ids => memory[ids]);
+    const notes = allItems.map(note => note.id);
     
     if (!notes) {
       return reject(new Error('object not found'));
@@ -61,14 +50,9 @@ storage.delete = function del(schema, id) {
     if (!id) return reject(new Error('expected id'));
     if (!memory[schema]) return reject(new Error('schema not found'));
 
-    const item = memory[schema];
+    const item = memory[schema][id];
+    delete memory[schema][id];
 
-    if (!item) {
-      return reject(new Error('item not found'));
-    }
-
-    item.destroy(id);
-
-    return resolve();
+    return resolve(item);
   });
 };

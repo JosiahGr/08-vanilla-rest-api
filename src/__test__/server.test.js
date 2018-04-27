@@ -59,8 +59,7 @@ describe('INVALID request to the API', () => {
         });
     });
     it('it should respond with bad request if no id was provided', () => {
-      return superagent.get(`:${testPort}/api/v1/note?id=${mockId}`)
-        .send(mockResource)
+      return superagent.get(`:${testPort}/api/v1/note?id=`)
         .query({})
         .catch((err) => {
           expect(err.status).toEqual(400);
@@ -69,7 +68,6 @@ describe('INVALID request to the API', () => {
     });
     it('it should respond with bad request if no body was provided', () => {
       return superagent.get(`:${testPort}/api/v1/note?id=${mockId}`)
-        .send(mockResource)
         .query({})
         .catch((err) => {
           expect(err.status).toEqual(400);
